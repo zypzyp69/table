@@ -1,9 +1,9 @@
 CREATE TABLE Patients (
-    patient_id INTEGER PRIMARY KEY,  -- Use INTEGER for Programiz compatibility
-    first_name VARCHAR(100) NOT NULL,
-    last_name VARCHAR(100) NOT NULL,
-    gender VARCHAR(10) CHECK (gender IN ('Male', 'Female', 'Other')),  -- Use CHECK instead of ENUM
-    birthdate DATE NOT NULL,
+    patient_id INTEGER PRIMARY KEY,
+    first_name VARCHAR(100),
+    last_name VARCHAR(100),
+    gender VARCHAR(10),
+    birthdate DATE,
     phone_number VARCHAR(15),
     email VARCHAR(100),
     address VARCHAR(255),
@@ -13,9 +13,9 @@ CREATE TABLE Patients (
 
 CREATE TABLE Doctors (
     doctor_id INTEGER PRIMARY KEY,
-    first_name VARCHAR(100) NOT NULL,
-    last_name VARCHAR(100) NOT NULL,
-    specialization VARCHAR(100) NOT NULL,
+    first_name VARCHAR(100),
+    last_name VARCHAR(100),
+    specialization VARCHAR(100),
     phone_number VARCHAR(15),
     email VARCHAR(100),
     years_of_experience INTEGER,
@@ -24,38 +24,33 @@ CREATE TABLE Doctors (
 
 CREATE TABLE Appointments (
     appointment_id INTEGER PRIMARY KEY,
-    patient_id INTEGER NOT NULL,
-    doctor_id INTEGER NOT NULL,
-    appointment_date DATETIME NOT NULL,
-    status VARCHAR(20) CHECK (status IN ('Scheduled', 'Completed', 'Cancelled')),  -- Use CHECK instead of ENUM
+    patient_id INTEGER,
+    doctor_id INTEGER,
+    appointment_date DATETIME,
+    status VARCHAR(20),
     reason_for_visit VARCHAR(255),
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (patient_id) REFERENCES Patients(patient_id),
-    FOREIGN KEY (doctor_id) REFERENCES Doctors(doctor_id)
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE Medical_Records (
     record_id INTEGER PRIMARY KEY,
-    patient_id INTEGER NOT NULL,
-    doctor_id INTEGER NOT NULL,
-    diagnosis TEXT NOT NULL,
-    treatment TEXT NOT NULL,
-    visit_date DATE NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (patient_id) REFERENCES Patients(patient_id),
-    FOREIGN KEY (doctor_id) REFERENCES Doctors(doctor_id)
+    patient_id INTEGER,
+    doctor_id INTEGER,
+    diagnosis TEXT,
+    treatment TEXT,
+    visit_date DATE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE Medications (
     medication_id INTEGER PRIMARY KEY,
-    record_id INTEGER NOT NULL,
-    medication_name VARCHAR(255) NOT NULL,
+    record_id INTEGER,
+    medication_name VARCHAR(255),
     dosage VARCHAR(100),
     frequency VARCHAR(100),
-    start_date DATE NOT NULL,
+    start_date DATE,
     end_date DATE,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (record_id) REFERENCES Medical_Records(record_id)
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 
